@@ -1,0 +1,29 @@
+model: resnet152
+bn: 1
+total_batch_size: 4096
+physical_batch_size: 32
+bn_batches: 128
+nw: 12
+
+#optimizer hyper
+optimizer: sgd
+max_lr: 0.8
+wd: 0.0001
+warmup: 1
+warmup_epochs: 5
+momentum: 0.9
+nesterov: 0
+epochs: 200
+epochs_for_sche: 200
+label_smoothing: 0.1
+
+
+
+steps_per_epoch: 312
+
+group_weight: 0
+
+
+
+
+log_per_step: 1

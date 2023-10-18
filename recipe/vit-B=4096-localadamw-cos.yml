@@ -1,0 +1,27 @@
+model: vit
+bn: 0
+total_batch_size: 4096
+nw: 12
+optimizer: localadamw
+max_lr: 0.016
+wd: 0.1
+warmup: 1
+momentum: 0
+nesterov: 0
+beta1: 0.9
+beta2: 0.999
+
+scheduler: cosine
+
+
+epochs: 300
+
+
+
+
+steps_per_epoch: 312
+
+group_weight: 0
+
+
+log_per_step: 1

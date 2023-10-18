@@ -1,0 +1,10 @@
+.config*
+checkpoint/
+check_point/
+wandb/
+*.pyc
+*.pt
+adjust*
+run*.sh
+*.ipynb
+hostfile*

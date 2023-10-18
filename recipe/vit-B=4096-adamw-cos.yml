@@ -1,0 +1,27 @@
+model: vit
+bn: 0
+total_batch_size: 4096
+
+
+nw: 12
+#inner optimizer hyper
+optimizer: adamw
+max_lr: 0.008
+wd: 0.1
+warmup: 1
+warmup_steps: 10000
+momentum: 0
+nesterov: 0
+
+gradient_clipping: 1
+
+
+
+steps_per_epoch: 312
+
+group_weight: 0
+
+
+
+log_per_step: 1
+
