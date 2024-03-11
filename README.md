@@ -96,7 +96,22 @@ Below, we introduce the usage of each command line argument.
 
 ## How can I Incorporate QSR into My Code?
 
-<!-- Our implementation of incorporate any PyTorch optimizer.  -->
+Our implementation of local gradient methods can be easily incorporated into any code based on ```torch.distributed```. You only have to replace the original PyTorch optimizer with its "local" version and add a few lines of code to your training loop.
+
+You can create the "local" optimizer by passing the original PyTorch optimizer (e.g., AdamW, SGD) and training hyperparameters to the ```LocalOptimizer``` class:
+
+```python
+from localopt import LocalOptimizer
+import torch.optim as optim
+localoptimizer = LocalOptimizer(optim=optimizer, warmup_steps=kwargs['warmup_steps'], total_steps = kwargs['total_steps'], alpha=self.args.alpha, power=self.args.power, min_h=self.args.min_h, init_h=self.args.init_h, step_ctr=self.step_ctr, optim_fields_to_average=fields_to_avg )
+```
+
+The local optimizer will automatically count the number of local steps and average the model parameter when necessary. Replace ```optimizer.step()``` with ```averaged = localoptimizer.step()```, where the bool variable ```averaged``` is ```True``` only when the model averaging step is conducted. The ```averaged``` variable can be used to judge whether we should call the ```localoptimizer.adjust_h()``` method (only change $H$ right after model averaging). Add the following code to your training loop:
+
+```python
+if averaged:
+  localoptimizer.adjust_h()
+```
 
 ## Prepare the Data
 Our experiments focus on the ImageNet classification task. You can download the data from [here](https://image-net.org/). To accelerate data loading, we employ FFCV. Please refer to [their website](https://ffcv.io/) for package installation and data preprocessing instructions.
