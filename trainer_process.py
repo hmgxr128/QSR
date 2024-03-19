@@ -87,13 +87,14 @@ class TrainerProcess:
 
         
         self.batches_per_step = args.acc_times
+        self.create_loader()
         if self.args.steps_per_epoch == -1:
             steps_per_epoch = len(self.train_loader) // self.batches_per_step
             self.args.steps_per_epoch = len(self.train_loader) // self.batches_per_step
         else:
             steps_per_epoch = self.args.steps_per_epoch
 
-        self.create_loader()
+        
 
 
         args.useful_batches = steps_per_epoch * self.batches_per_step
