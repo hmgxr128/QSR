@@ -218,7 +218,7 @@ class XModel():
             if not success:
                 raise ValueError("Cannot find grad_scaler!")
         else:
-            output, loss_train = step()
+            output, loss_train = step(input_img=input_img, input_target=input_target, **kwdct)
 
         torch.cuda.synchronize()
 
